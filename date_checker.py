@@ -1,6 +1,18 @@
 import sys
-#### FUNCTIONS ######
 
+
+#Dictionary  and lists of months and the number of days
+year={'january':31, 'february':28, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
+leapYearDict={'january':31, 'february':29, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
+days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+totalDays={'january':0, 'february':31, 'march': 59, 'april':90, 'may':120, 'june':151, 'july':181,'august':212, 'september':243, 'october':274, 'november':304, 'december':334}
+totalDaysLeap={'january':0, 'february':31, 'march': 60, 'april':91, 'may':121, 'june':152, 'july':182,'august':213, 'september':244, 'october':275, 'november':305, 'december':335}
+day='day'
+month='month'
+##############################################
+
+
+#### FUNCTIONS ######
 #Used for Leap Years
 def leapYearFunction():
     print('this is a leap year that begins on ' + str(firstDay))
@@ -28,9 +40,16 @@ def desiredDateLeap():
         print('That day doesnt fit within the month')
     print('you picked a date number within the month')
 
+def dateFinderLeap():
+    print(totalDaysLeap.get(month)+int(day))
+    dayMath=(totalDaysLeap.get(month)+int(day))%7
+    print(dayMath)
+
+    
 ##
 
 #Used for regular years
+    
 def noLeapYearFunction():
     print('this is a year that begins on ' + str(firstDay))
     desiredDate()
@@ -57,28 +76,23 @@ def desiredDate():
             pass
         print('That day doesnt fit within the month')
     print('you picked a date number within the month')
+
+
+
         
-
-            
-
+def dateFinder():
+    print(totalDays.get(month)+int(day))
+    dayMath=(totalDays.get(month)+int(day))%7
+    print(dayMath)
+    print(days[dayMath])
 
 #END OF FUNCTIONS ####
-
-#Dictionary of months and the number of days
-year={'january':31, 'february':28, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
-leapYearDict={'january':31, 'february':29, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
-days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
-day='day'
-month='month'
-##############################################
-
-
 
 
 #actual code
 print('Hello welcome to date checker bot')
-print('what is the first day of the week of the year')
 while True:
+    print('what is the first day of the week of the year')
     firstDay=input().lower()
     if (firstDay in days) == True:
         break
@@ -102,7 +116,8 @@ while True:
 if leapYear=='yes':
     leapYearFunction()
     print(month,day)
+    dateFinderLeap()
 if leapYear=='no':
     noLeapYearFunction()
     print(month,day)
-
+    dateFinder()
