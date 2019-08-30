@@ -7,12 +7,32 @@ leapYearDict={'january':31, 'february':29, 'march': 31, 'april':30, 'may':31, 'j
 days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 totalDays={'january':0, 'february':31, 'march': 59, 'april':90, 'may':120, 'june':151, 'july':181,'august':212, 'september':243, 'october':274, 'november':304, 'december':334}
 totalDaysLeap={'january':0, 'february':31, 'march': 60, 'april':91, 'may':121, 'june':152, 'july':182,'august':213, 'september':244, 'october':275, 'november':305, 'december':335}
+yearNumber=[]
 day='day'
 month='month'
 ##############################################
 
+#Weird ass formula i got from a weird website that destroys the whole point of this program but shhhh, ima use this  formula just
+#to find the first day of any year
+#W = (1 +(2.6*11 - 0.2) - 2C + Y + (Y/4) + (C/4)) mod 7
+
+#where floor() denotes the integer floor function,
+#k is day (1 to 31)
+#m is month (1 = March, ..., 10 = December, 11 = Jan, 12 = Feb) Treat Jan & Feb as months of the preceding year
+#C is century (1987 has C = 19)
+#Y is year (1987 has Y = 87 except Y = 86 for Jan & Feb)
+#W is week day (0 = Sunday, ..., 6 = Saturday)
+#
+
 
 #### FUNCTIONS ######
+
+def yearSplit():
+    yearNumber.append(year)
+    century=yearNumber[0][0:2]
+
+
+
 #Used for Leap Years
 def leapYearFunction():
     print('this is a leap year that begins on ' + str(firstDay))
@@ -44,6 +64,8 @@ def dateFinderLeap():
     print(totalDaysLeap.get(month)+int(day))
     dayMath=(totalDaysLeap.get(month)+int(day))%7
     print(dayMath)
+    print(days[dayMath])
+    print(month,day)
 
     
 ##
@@ -85,6 +107,7 @@ def dateFinder():
     dayMath=(totalDays.get(month)+int(day))%7
     print(dayMath)
     print(days[dayMath])
+    print(month,day)
 
 #END OF FUNCTIONS ####
 
@@ -92,7 +115,7 @@ def dateFinder():
 #actual code
 print('Hello welcome to date checker bot')
 while True:
-    print('what is the first day of the week of the year')
+    print('what first day of year ')
     firstDay=input().lower()
     if (firstDay in days) == True:
         break
@@ -111,13 +134,10 @@ while True:
     else:
         print('try again bucko')
 
-
-
 if leapYear=='yes':
     leapYearFunction()
-    print(month,day)
     dateFinderLeap()
+    
 if leapYear=='no':
     noLeapYearFunction()
-    print(month,day)
     dateFinder()

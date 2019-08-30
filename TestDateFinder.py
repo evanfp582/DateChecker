@@ -1,10 +1,10 @@
 import sys
-
+import math
 
 #Dictionary  and lists of months and the number of days
 year={'january':31, 'february':28, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
 leapYearDict={'january':31, 'february':29, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
-days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+days=['sunday','monday','tuesday','wednesday','thursday','friday','saturday']
 totalDays={'january':0, 'february':31, 'march': 59, 'april':90, 'may':120, 'june':151, 'july':181,'august':212, 'september':243, 'october':274, 'november':304, 'december':334}
 totalDaysLeap={'january':0, 'february':31, 'march': 60, 'april':91, 'may':121, 'june':152, 'july':182,'august':213, 'september':244, 'october':275, 'november':305, 'december':335}
 yearNumber=[]
@@ -14,6 +14,7 @@ leapYear='leapYear'
 dayNumber=0
 yr=0
 cent=00
+firstDay='day'
 ##############################################
 
 #Weird ass formula i got from a weird website that destroys the whole point of this program but shhhh, ima use this  formula just
@@ -121,56 +122,64 @@ print('Hello welcome to date checker bot')
 print('Select what you want to execute')
 print('1. Select the year')
 print('2. Select the first day of the year')
-option=input()
-if (int(option) == 2):
-    while True:
-        print('what first day of year ')
-        firstDay=input().lower()
-        if (firstDay in days) == True:
-            break
-        else:
-            print('try again bucko')
-    print('please input weather the year is a leap year or not as y or n')
-    while True:
-        leapYear
-        leapYear=input().lower()
-        if leapYear == 'n':
-            leapYear='no'
-            break
-            
-        elif leapYear == 'y':
-            leapYear='yes'
-            break
-        else:
-            print('try again bucko')
-elif (int(option)==1):
-    print('You have chosen Year slection')
-    print('what year?')
-    while True:
-        year=input()
-        if year.isdigit():
-            yearNumber=([int(d) for d in str(year)])
-            print(yearNumber)
-            while (len(yearNumber)) < 4:
-                yearNumber.insert(0,0)
+while True:
+    option=input()
+    if (int(option) == 2):
+        while True:
+            print('what first day of year ')
+            firstDay=input().lower()
+            if (firstDay in days) == True:
+                break
+            else:
+                print('try again bucko')
+        print('please input weather the year is a leap year or not as y or n')
+        while True:
+            leapYear
+            leapYear=input().lower()
+            if leapYear == 'n':
+                leapYear='no'
+                break
+                
+            elif leapYear == 'y':
+                leapYear='yes'
+                break
+            else:
+                print('try again bucko')
+    elif (int(option)==1):
+        print('You have chosen Year slection')
+        print('what year?')
+        while True:
+            year=input()
+            if year.isdigit():
+                yearNumber=([int(d) for d in str(year)])
                 print(yearNumber)
-            centList=([int(f) for f in yearNumber])
-            centList=(centList[0:2])
-            cent = str("".join(map(str, centList)))
-            print(cent)
+                while (len(yearNumber)) < 4:
+                    yearNumber.insert(0,0)
+                    print(yearNumber)
+                centList=([int(f) for f in yearNumber])
+                centList=(centList[0:2])
+                cent = str("".join(map(str, centList)))
+                print(cent)
 
-            yrList=([int(e) for e in yearNumber])
-            yrList=(yrList[2:4])
-            yr = str("".join(map(str, yrList)))
-            print(yr)
-            break
-        else:
-            print('hol up, that aint a year')
+                yrList=([int(e) for e in yearNumber])
+                yrList=(yrList[2:4])
+                yr = str("".join(map(str, yrList)))
+                print(yr)
+                yr=int(yr)-1
+                print(yr)
+                break
+            else:
+                print('hol up, that aint a year')
+        dayNumber =(1 +math.floor(2.6*11 - 0.2) - 2*int(cent) + int(yr) + math.floor(int(yr)/4) + math.floor(int(cent)/4)) % 7
+        int(dayNumber)
+        print(dayNumber)
+        print(days[int(dayNumber)])
+        firstDay=(days[int(dayNumber)])
+        noLeapYearFunction()
+    else:
+        print("that was not an option")
+    
 
-    int(dayNumber)
-    dayNumber = (1 +(2.6*11 - 0.2) - 2* int(cent) + int(yr) + (int(yr)//4) + (int(cent)//4) % 7)
-    print(days[dayNumber])
-print(day)
 if leapYear=='yes':
     leapYearFunction()
     dateFinderLeap()
