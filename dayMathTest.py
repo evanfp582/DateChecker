@@ -11,10 +11,11 @@ yearNumber=[]
 day='day'
 month='month'
 leapYear='leapYear'
-dayNumber=0
+#dayNumber=0
 yr=0
 cent=00
-firstDay='day'
+dayMath=5
+#firstDay='day'
 ##############################################
 
 #Weird ass formula i got from a weird website that destroys the whole point of this program but shhhh, ima use this  formula just
@@ -31,7 +32,18 @@ firstDay='day'
 
 
 #### FUNCTIONS ######
-
+def leapYearTest():
+    global leapYear 
+    if ((int(yearInput) % 4) == 0):
+        if((int (yearInput) % 100) == 0):
+            if ((int(yearInput)% 400) == 0 ):
+                leapYear='yes'
+            else:
+                leapYear='no'
+        else:
+            leapYear='yes'
+    else:
+        leapYear='no'
 def yearSplit():
     yearNumber.append(year)
     century=yearNumber[0][0:2]
@@ -67,9 +79,11 @@ def desiredDateLeap():
 
 def dateFinderLeap():
     print(totalDaysLeap.get(month)+int(day))
-    dayMath=(totalDaysLeap.get(month)+int(day))%7
+    dayMath=((totalDaysLeap.get(month)+int(day)))%7
     print(dayMath)
     print(days[dayMath])
+    global x
+    x=(days[dayMath])
     print(month,day)
 
     
@@ -90,6 +104,8 @@ def desiredDate():
         if (month in year.keys())==True:
             print('one morestep done of nonleap year')
             break
+        else:
+            print('That is not a month')
     while True:
         print('what day of that month would you like to know')
         daysInMonth=year.get(month)
@@ -109,9 +125,11 @@ def desiredDate():
         
 def dateFinder():
     print(totalDays.get(month)+int(day))
-    dayMath=(totalDays.get(month)+int(day))%7
+    dayMath=((totalDaysLeap.get(month)+int(day)))%7
     print(dayMath)
     print(days[dayMath])
+    global x
+    x=(days[dayMath])
     print(month,day)
 
 #END OF FUNCTIONS ####
@@ -145,13 +163,22 @@ while True:
                 break
             else:
                 print('try again bucko')
+        if leapYear=='yes':
+            leapYearFunction()
+            dateFinderLeap()
+    
+        if leapYear=='no':
+            noLeapYearFunction()
+            dateFinder()
+        print ('On ' + month+ ' ' + day + ' it is a ' + x )
+        break
     elif (int(option)==1):
         print('You have chosen Year slection')
         print('what year?')
         while True:
-            year=input()
-            if year.isdigit():
-                yearNumber=([int(d) for d in str(year)])
+            yearInput=input()
+            if yearInput.isdigit():
+                yearNumber=([int(d) for d in str(yearInput)])
                 print(yearNumber)
                 while (len(yearNumber)) < 4:
                     yearNumber.insert(0,0)
@@ -175,18 +202,23 @@ while True:
         print(dayNumber)
         print(days[int(dayNumber)])
         firstDay=(days[int(dayNumber)])
-        noLeapYearFunction()
+        str (firstDay)
+        leapYearTest()
+        print(leapYear)
+        if leapYear=='yes':
+            leapYearFunction()
+            dateFinderLeap()
+    
+        if leapYear=='no':
+            noLeapYearFunction()
+            dateFinder()
+        print ('in the year ' + yearInput + ' on ' + month+ ' ' + day + ' it is a ' + x )
+        break
     else:
         print("that was not an option")
-    
 
-if leapYear=='yes':
-    leapYearFunction()
-    dateFinderLeap()
-    
-if leapYear=='no':
-    noLeapYearFunction()
-    dateFinder()
+
+
 
 
 
