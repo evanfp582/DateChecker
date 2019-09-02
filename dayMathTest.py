@@ -1,7 +1,12 @@
+######################
+####### IMPORTS ######
+######################
 import sys
 import math
 
-#Dictionary  and lists of months and the number of days
+############################################
+#######Dictionaries, lists, variables#######
+############################################
 year={'january':31, 'february':28, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
 leapYearDict={'january':31, 'february':29, 'march': 31, 'april':30, 'may':31, 'june':30, 'july':31,'august':31, 'september':30, 'october':31, 'november':30, 'december':31}
 days=['sunday','monday','tuesday','wednesday','thursday','friday','saturday']
@@ -11,15 +16,14 @@ yearNumber=[]
 day='day'
 month='month'
 leapYear='leapYear'
-#dayNumber=0
 yr=0
 cent=00
 dayMath=5
-#firstDay='day'
 ##############################################
 
-#Weird ass formula i got from a weird website that destroys the whole point of this program but shhhh, ima use this  formula just
-#to find the first day of any year
+#Weird ass formula i got from a weird website that
+#destroys the whole point of this program but shhhh,
+#ima use this  formula just to find the first day of any year
 #W = (1 +(2.6*11 - 0.2) - 2C + Y + (Y/4) + (C/4)) mod 7
 
 #where floor() denotes the integer floor function,
@@ -30,8 +34,19 @@ dayMath=5
 #W is week day (0 = Sunday, ..., 6 = Saturday)
 
 
+#############################
+######### FUNCTIONS #########
+#############################
 
-#### FUNCTIONS ######
+
+#takes the previously declared firstDay and assign a number to it based on
+#position in the week 
+def firstDayFunction():
+    global firstDay
+    firstDay=days.index(firstDay)
+    firstDay=firstDay-1
+
+#tests if the given year is a leap year
 def leapYearTest():
     global leapYear 
     if ((int(yearInput) % 4) == 0):
@@ -51,17 +66,20 @@ def yearSplit():
 
 
 #Used for Leap Years
+
+#executed for every leap year    
 def leapYearFunction():
-    print('this is a leap year that begins on ' + str(firstDay))
+    firstDayFunction()
     desiredDateLeap()
 
+
+#uses input to get a month and day and making sure all the numbers are legit
 def desiredDateLeap():
     while True:
         print('what month would you like to know')
         global month
         month=input().lower()
         if (month in leapYearDict.keys())==True:
-            print('one morestep done')
             break
     while True:
         print('what day of that month would you like to know')
@@ -70,39 +88,36 @@ def desiredDateLeap():
         day=input().lower()
         try:
             if (int(day) <= daysInMonth)& (int(day)>0):
-                print('great!')
                 break
         except ValueError:
             pass
         print('That day doesnt fit within the month')
-    print('you picked a date number within the month')
 
+
+#finding the specific day, the end result of this program
 def dateFinderLeap():
-    print(totalDaysLeap.get(month)+int(day))
-    dayMath=((totalDaysLeap.get(month)+int(day)))%7
-    print(dayMath)
-    print(days[dayMath])
+    dayMath=(totalDaysLeap.get(month)+ int(day)+int(firstDay))%7
     global x
     x=(days[dayMath])
-    print(month,day)
-
     
-##
 
 #Used for regular years
-    
+
+
+#executed for all non leap years    
 def noLeapYearFunction():
     print('this is a year that begins on ' + str(firstDay))
     desiredDate()
+    firstDayFunction()
 
-    
+
+#gets month and day and makes sure the values are legit
 def desiredDate():
     while True:
         print('what month would you like to know')
         global month
         month=input().lower()
         if (month in year.keys())==True:
-            print('one morestep done of nonleap year')
             break
         else:
             print('That is not a month')
@@ -113,35 +128,32 @@ def desiredDate():
         day=input().lower()
         try:
             if (int(day) <= daysInMonth)& (int(day)>0):
-                print('great!')
                 break
         except ValueError:
             pass
         print('That day doesnt fit within the month')
-    print('you picked a date number within the month')
 
 
 
-        
+#end result of program, finds the day of the week given first day, month , and day
 def dateFinder():
-    print(totalDays.get(month)+int(day))
-    dayMath=((totalDaysLeap.get(month)+int(day)))%7
-    print(dayMath)
-    print(days[dayMath])
+    dayMath=(totalDays.get(month)+int(day)+ int(firstDay))%7
     global x
     x=(days[dayMath])
-    print(month,day)
 
-#END OF FUNCTIONS ####
+#################################
+######### END OF FUNCTIONS ######
+#################################
 
-
-#actual code
+#Executing starts here
 print('Hello welcome to date checker bot')
 print('Select what you want to execute')
 print('1. Select the year')
 print('2. Select the first day of the year')
 while True:
     option=input()
+#choosing to input the first day of the year, idk why you'd do this but it's what
+#I made first
     if (int(option) == 2):
         while True:
             print('what first day of year ')
@@ -172,39 +184,36 @@ while True:
             dateFinder()
         print ('On ' + month+ ' ' + day + ' it is a ' + x )
         break
+
+#Selecting the year input option gets you here. AKA option 1
     elif (int(option)==1):
-        print('You have chosen Year slection')
-        print('what year?')
+        print('what year less than 9999, but more than 0?')
         while True:
             yearInput=input()
+            #taking the year, putting it into a 4 digit list, separating it into
+            #two digits, one for the first two, one for the last 2
             if yearInput.isdigit():
                 yearNumber=([int(d) for d in str(yearInput)])
-                print(yearNumber)
                 while (len(yearNumber)) < 4:
                     yearNumber.insert(0,0)
-                    print(yearNumber)
                 centList=([int(f) for f in yearNumber])
                 centList=(centList[0:2])
                 cent = str("".join(map(str, centList)))
-                print(cent)
 
                 yrList=([int(e) for e in yearNumber])
                 yrList=(yrList[2:4])
                 yr = str("".join(map(str, yrList)))
-                print(yr)
                 yr=int(yr)-1
-                print(yr)
                 break
             else:
                 print('hol up, that aint a year')
+        #math that gives the user the first day to the year they inputted
+        global dayNumber
         dayNumber =(1 +math.floor(2.6*11 - 0.2) - 2*int(cent) + int(yr) + math.floor(int(yr)/4) + math.floor(int(cent)/4)) % 7
         int(dayNumber)
-        print(dayNumber)
-        print(days[int(dayNumber)])
         firstDay=(days[int(dayNumber)])
         str (firstDay)
         leapYearTest()
-        print(leapYear)
         if leapYear=='yes':
             leapYearFunction()
             dateFinderLeap()
@@ -217,7 +226,7 @@ while True:
     else:
         print("that was not an option")
 
-
+print('done')
 
 
 
